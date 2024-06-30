@@ -1,3 +1,5 @@
 *.md
+*.db
+
 __pycache__
 venv
