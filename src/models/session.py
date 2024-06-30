@@ -4,8 +4,9 @@ from pydantic import BaseModel, Field
 
 
 class Session(BaseModel):
+    # log2(62) * 48 = 286 bits of entropy
     session_id: Annotated[
-        str, Field(min_length=32, max_length=32, pattern=r"^[A-Za-z0-9]{32,32}$")
+        str, Field(min_length=48, max_length=48, pattern=r"^[A-Za-z0-9]{48,48}$")
     ]
 
 
