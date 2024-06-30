@@ -1,4 +1,5 @@
 DATABASE_URL: str = "sqlite:///database.db"
+DATABASE_ECHO: bool = True  # prints sql queries,
 
 # how long should session last in seconds
 # 30 days = 30 * 24 * 60 * 60 = 2592000 seconds
