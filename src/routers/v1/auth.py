@@ -55,7 +55,7 @@ def register(
 
     # set session-id cookie
     response.set_cookie(
-        key="session-id",
+        key="session_id",
         value=session_id,
         samesite="strict",
         httponly=True,
@@ -108,7 +108,7 @@ def login(
 
     # set session-id cookie
     response.set_cookie(
-        key="session-id",
+        key="session_id",
         value=session_id,
         samesite="strict",
         httponly=True,
@@ -118,21 +118,49 @@ def login(
     return None
 
 
-@router.get("/sessions")
+@router.get(
+    "/sessions", status_code=status.HTTP_200_OK, response_model=list[SessionOut]
+)
 def get_sessions(
     session_cookie: Annotated[SessionCookie, Depends()]
 ) -> list[SessionOut]:
     """Returns all active sessions"""
-    ...
+    # get current user id
+    statement = select(Sessions.user_id).where(
+        Sessions.session_id == session_cookie.session_id
+    )
+    with Session(engine) as session:
+        user_id = session.exec(statement).first()
+        if not user_id:
+            raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Invalid session")
+
+        # get all active sessions
+        statement = select(Sessions).where(Sessions.user_id == user_id)
+        return session.exec(statement).all()
 
 
-@router.patch("/sessions")
+@router.patch("/sessions", status_code=status.HTTP_204_NO_CONTENT)
 def patch_session(session_cookie: Annotated[SessionCookie, Depends()]) -> None:
     """Updates session expiration time"""
-    ...
+    statement = select(Sessions).where(Sessions.session_id == session_cookie.session_id)
+    with Session(engine) as session:
+        session_entry: Sessions = session.exec(statement).first()
+        if not session_entry:
+            raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Invalid session")
+        session_entry.expires_at = unix_time() + SESSION_DURATION
+        session.add(session_entry)
+        session.commit()
+    return None
 
 
-@router.delete("/sessions")
+@router.delete("/sessions", status_code=status.HTTP_204_NO_CONTENT)
 def delete_session(session_cookie: Annotated[SessionCookie, Depends()]) -> None:
     """Deletes session"""
-    ...
+    statement = select(Sessions).where(Sessions.session_id == session_cookie.session_id)
+    with Session(engine) as session:
+        session_entry: Sessions = session.exec(statement).first()
+        if not session_entry:
+            raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Invalid session")
+        session.delete(session_entry)
+        session.commit()
+    return None
