@@ -8,7 +8,7 @@ from ...models.user import UserOut
 from ...database import engine, Users, Sessions
 
 
-router = APIRouter(prefix="/v1/users", tags=["users"])
+router = APIRouter(prefix="/v1/user", tags=["user"])
 
 
 @router.get("", status_code=status.HTTP_200_OK, response_model=UserOut)
@@ -27,7 +27,7 @@ async def get_user(session_cookie: Annotated[SessionCookie, Depends()]) -> UserO
 # @router.patch("", status_code=status.HTTP_200_OK)
 # async def patch_user(
 #     session_cookie: Annotated[SessionCookie, Depends()]
-#     #  and some requst body in json
+#     #  and some requst body in json that needs to change
 # ): ...
 
 
