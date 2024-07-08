@@ -1,0 +1,9 @@
+# get user
+curl localhost:8000/v1/user -v \
+-X GET \
+-b "session_id=..."
+
+# delete user
+curl localhost:8000/v1/user -v \
+-X DELETE \
+-b "session_id=..."

@@ -1,0 +1,26 @@
+# register
+curl localhost:8000/v1/auth/register -v \
+-X POST \
+-H "Content-Type: application/json" \
+-d '{"username": ..., "password": ...}'
+
+# login
+curl localhost:8000/v1/auth/login -v \
+-X POST \
+-H "Content-Type: application/json" \
+-d '{"username": ..., "password": ...}'
+
+# get sessions
+curl localhost:8000/v1/auth/sessions -v \
+-X GET \
+-b "session_id=..."
+
+# patch session
+curl localhost:8000/v1/auth/sessions -v \
+-X PATCH \
+-b "session_id=..."
+
+# delete session
+curl localhost:8000/v1/auth/sessions -v \
+-X DELETE \
+-b "session_id=..."

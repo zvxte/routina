@@ -1,0 +1,33 @@
+# get activities
+curl localhost:8000/v1/activities -v \
+-X GET \
+-b "session_id=..."
+
+# post activities
+curl localhost:8000/v1/activities -v \
+-X POST \
+-b "session_id=..." \
+-H "Content-Type: application/json" \
+-d '{"title": ..., "description": ...}'
+
+# patch activity
+curl localhost:8000/v1/activities/... -v \
+-X PATCH \
+-b "session_id=..." \
+-H "Content-Type: application/json" \
+-d '{...}'
+
+# delete activity
+curl localhost:8000/v1/activities/... -v \
+-X DELETE \
+-b "session_id=..."
+
+# get activity history
+curl localhost:8000/v1/activities/.../.../... -v \
+-X "GET" \
+-b "session_id=..."
+
+# patch activity history
+curl localhost:8000/v1/activities/.../.../.../... -v \
+-X "PATCH" \
+-b "session_id=..."
