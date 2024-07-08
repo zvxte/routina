@@ -20,6 +20,7 @@ fastapi run src/main.py
 ```
 
 You can adjust configuration in [config.py](./src/config.py) file.
+Documentation is available on **/docs**.
 
 ## Disclaimer
 
