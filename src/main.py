@@ -4,7 +4,10 @@ from .routers.v1 import auth as v1_auth, user as v1_user, activities as v1_activ
 from .middlewares import ValidateSession
 
 
-app = FastAPI()
+app = FastAPI(
+    title="routina",
+    description="Simple API to track your routines",
+)
 
 app.include_router(v1_auth.router)
 app.include_router(v1_user.router)
