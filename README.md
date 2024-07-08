@@ -19,6 +19,8 @@ pip install -r requirements.txt
 fastapi run src/main.py
 ```
 
+You can adjust configuration in [config.py](./src/config.py) file.
+
 ## Disclaimer
 
 This is a personal project created for learning purposes and is **not suitable** for real-world usage.
