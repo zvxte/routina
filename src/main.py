@@ -7,7 +7,7 @@ from .config import DOCS_URL
 
 app = FastAPI(
     title="routina",
-    description="Simple API to track your routines",
+    description="Routines tracker",
     docs_url=DOCS_URL,
 )
 
