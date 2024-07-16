@@ -1,6 +1,6 @@
 # Routina
 
-**Simple API to track your routines**.
+**Routines tracker**.
 
 Built with [FastAPI](https://github.com/tiangolo/fastapi) and [SQLModel](https://github.com/tiangolo/sqlmodel).
 
